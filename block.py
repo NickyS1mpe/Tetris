@@ -14,10 +14,12 @@ class Block:
         self.rotate_state = 0
         self.colors = Colors().get_cell_colors()
 
+    # move the block
     def move(self, rows, columns):
         self.row_offset += rows
         self.column_offset += columns
 
+    # get the current position of block
     def get_cell_pos(self):
         tiles = self.cells[self.rotate_state]
         move_tiles = []
@@ -26,14 +28,17 @@ class Block:
             move_tiles.append(position)
         return move_tiles
 
+    # rotate the block
     def rotate(self):
         self.rotate_state = (self.rotate_state + 1) % len(self.cells)
 
+    # undo the rotation
     def undo_rotate(self):
         self.rotate_state -= 1
         if self.rotate_state < 0:
             self.rotate_state = len(self.cells) - 1
 
+    # draw the blocks
     def draw(self, screen, offset_x, offset_y):
         tiles = self.get_cell_pos()
         for tile in tiles:

@@ -3,6 +3,7 @@ from colors import Colors
 from game_loop import main
 
 
+# game entrance
 def entrance():
     run = True
     pygame.init()

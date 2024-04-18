@@ -4,7 +4,9 @@ from colors import Colors
 from score import Score
 
 
+# game loop
 def main():
+    # initialize pygame
     pygame.init()
 
     font = pygame.font.SysFont("OCR A Extended", 30, bold=False)
@@ -24,9 +26,11 @@ def main():
     screen = pygame.display.set_mode((550, 620))
     pygame.display.set_caption("SSW-500 Tetris")
 
+    # initialize clock and game
     clock = pygame.time.Clock()
     game = Game()
 
+    # set update frequency
     game_update = pygame.USEREVENT
     pygame.time.set_timer(game_update, 250)
 
@@ -36,12 +40,14 @@ def main():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
+                # if game is over, record the score and reset the game
                 if game.game_over:
                     game.game_over = False
                     score.update_score(game.score)
                     max_score = score.get_max_score()
                     game.reset()
                 if not game.game_over:
+                    # capture inputs from keyboard
                     if event.key == pygame.K_DOWN:
                         game.move_down()
                         game.update_score(0, 1)
@@ -51,10 +57,11 @@ def main():
                         game.move_right()
                     if event.key == pygame.K_UP:
                         game.rotate()
+            # fall blocks automatically
             if event.type == game_update and not game.game_over:
                 game.move_down()
 
-        # Drawing
+        # drawing the game canvas
         screen.fill(Colors.black)
 
         current_score = font1.render(str(game.score), True, Colors.white)
@@ -63,6 +70,7 @@ def main():
         screen.blit(score_surface, (375, 20, 50, 50))
         screen.blit(next_surface, (375, 260, 50, 50))
 
+        # if game is over, show the game over interface
         if game.game_over:
             game.draw_game_over(screen)
             screen.blit(game_over_surface, (50, 230, 50, 50))
@@ -74,8 +82,10 @@ def main():
         screen.blit(m_score, m_score.get_rect(centerx=max_score_rect.centerx, centery=max_score_rect.centery))
         # pygame.draw.rect(screen, Colors.black, next_rect, 0, 10)
 
+        # if game is not over, draw the blocks on canvas
         if not game.game_over:
             game.draw(screen)
 
+        # update the canvas display
         pygame.display.update()
         clock.tick(60)

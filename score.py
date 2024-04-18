@@ -2,6 +2,7 @@ class Score:
     def __init__(self):
         self.score_file = 'scores.txt'
 
+    # get the max score from local file
     def get_max_score(self):
         with open(self.score_file, 'r') as f:
             lines = f.readlines()
@@ -9,6 +10,7 @@ class Score:
 
         return score
 
+    # write the max score to local
     def update_score(self, new_score):
         max_score = self.get_max_score()
         if int(max_score) < int(new_score):

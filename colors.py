@@ -1,3 +1,4 @@
+# store different colors
 class Colors:
     dark_grey = (50, 50, 50)
     green = (0, 255, 127)
