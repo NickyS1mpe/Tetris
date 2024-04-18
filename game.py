@@ -33,11 +33,11 @@ class Game:
         self.cur_block.draw(screen, 11, 11)
 
         if self.next_block.id == 3:
-            self.next_block.draw(screen, 305, 350)
+            self.next_block.draw(screen, 285, 350)
         elif self.next_block.id == 4:
-            self.next_block.draw(screen, 305, 340)
+            self.next_block.draw(screen, 285, 340)
         else:
-            self.next_block.draw(screen, 320, 330)
+            self.next_block.draw(screen, 300, 330)
 
     # draw the game over interface
     def draw_game_over(self, screen):
